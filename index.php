@@ -1,5 +1,29 @@
 <?php include 'data/config.php'; ?>
 
+<?php
+
+$cpuIndex = null;
+if (isset($_GET['cpu'])) {
+    $cpuIndex = intval($_GET['cpu']);
+}
+
+$ramIndex = null;
+if (isset($_GET['ram'])) {
+    $ramIndex = intval($_GET['ram']);
+}
+
+$gpuIndex = null;
+if (isset($_GET['gpu'])) {
+    $gpuIndex = intval($_GET['gpu']);
+}
+
+$osIndex = null;
+if (isset($_GET['os'])) {
+    $osIndex = intval($_GET['os']);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +47,7 @@
                 <label for="cpu">Processeur</label>
                 <select name="cpu" class="form-control">
                     <?php foreach ($cpus as $index => $cpu): ?>
-                    <option value="<?= $index ?>"><?= $cpu['name'] ?></option>
+                    <option value="<?= $index ?>" <?php if ($cpuIndex === $index) { echo 'selected'; } ?>><?= $cpu['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -31,7 +55,7 @@
                 <label for="ram">Mémoire vive</label>
                 <select name="ram" class="form-control">
                     <?php foreach ($rams as $index => $ram): ?>
-                    <option value="<?= $index ?>"><?= $ram['name'] ?></option>
+                    <option value="<?= $index ?>" <?php if ($ramIndex === $index) { echo 'selected'; } ?>><?= $ram['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -39,7 +63,7 @@
                 <label for="gpu">Carte graphique</label>
                 <select name="gpu" class="form-control">
                     <?php foreach ($gpus as $index => $gpu): ?>
-                    <option value="<?= $index ?>"><?= $gpu['name'] ?></option>
+                    <option value="<?= $index ?>" <?php if ($gpuIndex === $index) { echo 'selected'; } ?>><?= $gpu['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -47,14 +71,14 @@
                 <label for="os">Système d'exploitation</label>
                 <select name="os" class="form-control">
                     <?php foreach ($oss as $index => $os): ?>
-                    <option value="<?= $index ?>"><?= $os['name'] ?></option>
+                    <option value="<?= $index ?>" <?php if ($osIndex === $index) { echo 'selected'; } ?>><?= $os['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <h2 class="mt-4 mb-2">Accessoires</h2>
             <?php foreach ($accessories as $index => $accessory): ?>
             <div class="form-group form-check">
-                <input name="<?= $index ?>" type="checkbox" class="form-check-input">
+                <input name="<?= $index ?>" type="checkbox" class="form-check-input" <?php if (isset($_GET[$index]) && ($_GET[$index] === 'on')) { echo 'checked'; } ?>>
                 <label class="form-check-label" for="<?= $index ?>"><?= $accessory['name'] ?></label>
             </div>
             <?php endforeach; ?>

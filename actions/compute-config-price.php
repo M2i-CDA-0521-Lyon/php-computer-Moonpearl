@@ -52,4 +52,4 @@ if (!empty($_GET)) {
 }
 
 // Redirige vers la page d'accueil
-header('Location: /?totalPrice=' . $totalPrice);
+header('Location: /?totalPrice=' . $totalPrice . '&' . http_build_query($_GET));
