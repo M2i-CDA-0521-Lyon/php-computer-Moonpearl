@@ -50,3 +50,6 @@ if (!empty($_GET)) {
         echo 'Formulaire invalide';
     }
 }
+
+// Redirige vers la page d'accueil
+header('Location: /?totalPrice=' . $totalPrice);
