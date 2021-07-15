@@ -1,76 +1,41 @@
 <?php
 
-$cpus = [
-    [
-        'name' => 'Acu j3 Dual-Core (9ème génération)',
-        'price' => 125,
-    ],
-    [
-        'name' => 'Acu j5 Quad-Core (9ème génération)', 
-        'price' => 250
-    ],
-    [
-        'name' => 'Acu j7 Octo-Core (9ème génération)', 
-        'price' => 500
-    ],
-];
+// Configure la connexion à la base de données
+$servername = "localhost";
+$username = 'root';
+$password = 'root';
+$databaseHandler = new PDO("mysql:host=$servername;dbname=php-config", $username, $password);
 
-$rams = [
-    [
-        'name' => '2 x 4 Go π-Rate DDR4',
-        'price' => 40
-    ],
-    [
-        'name' => '1 x 8 Go π-Rate DDR4',
-        'price' => 50,
-    ],
-    [
-        'name' => '2 x 8 Go π-Rate DDR4',
-        'price' => 80,
-    ],
-    [
-        'name' => '1 x 16 Go π-Rate DDR4',
-        'price' => 100,
-    ],
-    [
-        'name' => '2 x 16 Go π-Rate DDR4',
-        'price' => 160,
-    ],
-    [
-        'name' => '1 x 32 Go π-Rate DDR4',
-        'price' => 200,
-    ]
-];
+// Envoie une requête dans le serveur de base de données
+$statement = $databaseHandler->query('SELECT * FROM `cpus`');
+// Récupère tous les résultats de la requête
+$cpus = $statement->fetchAll();
 
-$gpus = [
-    [
-        'name' => 'MSCOPIA VeStrength 1050 GTX',
-        'price' => 300
-    ],
-    [
-        'name' => 'MSCOPIA VeStrength 1650 GTX',
-        'price' => 600
-    ],
-    [
-        'name' => 'MSCOPIA VeStrength 2050 GTX',
-        'price' => 900
-    ]
-];
+// Envoie une requête dans le serveur de base de données
+$statement = $databaseHandler->query('SELECT * FROM `gpus`');
+// Récupère tous les résultats de la requête
+$gpus = $statement->fetchAll();
 
-$oss = [
-    [
-        'name' => 'Pas de système d\'exploitation', 
-        'price' => 0
-    ],
-    [
-        'name' => 'Nanosoft Shutters® 10 - édition familiale', 
-        'price' => 100
-    ],
-    [
-        'name' => 'Nanosoft Shutters® 10 - édition professionnelle', 
-        'price' => 100
-    ]
-];
+// Envoie une requête dans le serveur de base de données
+$statement = $databaseHandler->query('SELECT * FROM `rams`');
+// Récupère tous les résultats de la requête
+$rams = $statement->fetchAll();
+
+// Envoie une requête dans le serveur de base de données
+$statement = $databaseHandler->query('SELECT * FROM `os`');
+// Récupère tous les résultats de la requête
+$oss = $statement->fetchAll();
+
+
+
+
+
+
+
+
+
+
+
 
 $accessories = [
     'keyboard' => [
