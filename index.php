@@ -73,18 +73,15 @@ $oss = [
 ];
 
 $accessories = [
-    [
-        'type' => 'keyboard',
+    'keyboard' => [
         'name' => 'Clavier gamer Rationtech K250',
         'price' => 100
     ],
-    [
-        'type' => 'mouse',
+    'mouse' => [
         'name' => 'Souris gamer Rationtech K502',
         'price' => 80
     ],
-    [
-        'type' => 'screen',
+    'screen' => [
         'name'=>'Ecran MSCOPIA MB2042',
         'price' => 300
     ]
@@ -98,20 +95,43 @@ if (!empty($_GET)) {
         isset($_GET['gpu']) &&
         isset($_GET['os'])
     ) {
+        // Récupère l'index des différents composants dans les query parameters
         $cpuIndex = intval($_GET['cpu']);
         $ramIndex = intval($_GET['ram']);
         $gpuIndex = intval($_GET['gpu']);
         $osIndex = intval($_GET['os']);
-
+    
+        // Ajoute le prix de chaque composant au prix total
         $totalPrice =
             $cpus[$cpuIndex]['price'] +
             $rams[$ramIndex]['price'] +
             $gpus[$gpuIndex]['price'] +
             $oss[$osIndex]['price']
         ;
+        
+        // Si la case "clavier" a été cochée
+        if (isset($_GET['keyboard']) && $_GET['keyboard'] === 'on') {
+            // Ajoute la prix du clavier au prix total
+            $totalPrice += $accessories['keyboard']['price'];
+        } 
 
+        // Si la case "souris" a été cochée
+        if (isset($_GET['mouse']) && $_GET['mouse'] === 'on') {
+            // Ajoute la prix du souris au prix total
+            $totalPrice += $accessories['mouse']['price'];
+        } 
+
+        // Si la case "écran" a été cochée
+        if (isset($_GET['screen']) && $_GET['screen'] === 'on') {
+            // Ajoute la prix du écran au prix total
+            $totalPrice += $accessories['screen']['price'];
+        } 
+
+        // Affiche le prix total dans la page
         echo $totalPrice;
+    // Sinon, c'est que la requête HTTP a été falsifiée
     } else {
+        // Affiche un message d'erreur dans la page
         echo 'Formulaire invalide';
     }
 }
@@ -167,8 +187,8 @@ if (!empty($_GET)) {
             <h2 class="mt-4 mb-2">Accessoires</h2>
             <?php foreach ($accessories as $index => $accessory): ?>
             <div class="form-group form-check">
-                <input name="<?= $accessory['type'] ?>" type="checkbox" class="form-check-input">
-                <label class="form-check-label" for="<?= $accessory['type'] ?>"><?= $accessory['name'] ?></label>
+                <input name="<?= $index ?>" type="checkbox" class="form-check-input">
+                <label class="form-check-label" for="<?= $index ?>"><?= $accessory['name'] ?></label>
             </div>
             <?php endforeach; ?>
             <button type="submit" class="btn btn-primary">Calculer</input>
