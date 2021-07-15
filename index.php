@@ -2,6 +2,12 @@
 
 <?php
 
+$errorMessages = [
+    'Les paramètres de requête ne doivent pas être vides.',
+    'Un paramètre de requête est manquant.',
+    'Un paramètre de requête référence un enregistrement non-existant.',
+];
+
 $cpuIndex = null;
 if (isset($_GET['cpu'])) {
     $cpuIndex = intval($_GET['cpu']);
@@ -35,11 +41,19 @@ if (isset($_GET['os'])) {
 <body>
     <div class="container">
         <img src="images/Headerbild-pc-gamer-main.jpg" class="img-fluid mb-4" alt="PC gamer" />
+        
         <?php if(isset($_GET['totalPrice'])): ?>
             <div class="alert alert-primary" role="alert">
                 Le prix de votre configuration est de <?= $_GET['totalPrice'] ?>€
             </div>
         <?php endif; ?>
+
+        <?php if (isset($_GET['error'])): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $errorMessages[$_GET['error']] ?>
+            </div>
+        <?php endif; ?>
+
         <h1>Composez votre PC gaming sur mesure</h1>
         <form action="actions/compute-config-price.php">
             <h2 class="mt-4 mb-2">Composants</h2>
